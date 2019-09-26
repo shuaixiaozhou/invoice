@@ -1,16 +1,16 @@
 {
-  "pages":[
-      "pages/badge/badge",
+  "pages": [
+    "pages/badge/badge",
     "pages/home/index",
-  
     "pages/logs/logs",
-    "pages/preview/preview"
+    "pages/preview/preview",
+    "pages/uploader/uploader"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F0FFFF",
     "navigationBarTitleText": "嘉皓智云",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
   "tabBar": {
     "color": "#999999",
@@ -24,7 +24,7 @@
         "selectedIconPath": "image/home-selected.png",
         "text": "首页",
         "color": "#F0FFFF",
-        "selectedColor":"#1E90FF",
+        "selectedColor": "#1E90FF",
         "backgroundColor": "#F0FFFF"
       },
       {
@@ -37,5 +37,6 @@
         "backgroundColor": "#F0FFFF"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }
