@@ -1,0 +1,41 @@
+{
+  "pages":[
+      "pages/badge/badge",
+    "pages/home/index",
+  
+    "pages/logs/logs",
+    "pages/preview/preview"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#F0FFFF",
+    "navigationBarTitleText": "嘉皓智云",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#C33552",
+    "borderStyle": "black",
+    "backgroundColor": "#F0FFFF",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "iconPath": "image/home.png",
+        "selectedIconPath": "image/home-selected.png",
+        "text": "首页",
+        "color": "#F0FFFF",
+        "selectedColor":"#1E90FF",
+        "backgroundColor": "#F0FFFF"
+      },
+      {
+        "pagePath": "pages/badge/badge",
+        "iconPath": "image/my.png",
+        "selectedIconPath": "image/my-selected.png",
+        "text": "我的",
+        "color": "#F0FFFF",
+        "selectedColor": "#1E90FF",
+        "backgroundColor": "#F0FFFF"
+      }
+    ]
+  }
+}
