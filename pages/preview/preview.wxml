@@ -21,7 +21,7 @@
             </view>
             <view class="weui-form-preview__ft">
                 <navigator class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active">联系卖家</navigator>
-                <navigator class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">购买</navigator>
+                <navigator url="/pages/opreate/index" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">购买</navigator>
             </view>
         </view>
     </view>

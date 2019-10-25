@@ -1,21 +1,18 @@
-// pages/home/index.js
-var base64 = require("../../image/base64");
+// pages/opreate/index.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      icon: "http://n4.hdfimg.com/g2/M03/BA/44/w4YBAF1Sdm6AUuvWAAADzIJNX7A745.png?_ms_=a9e3"
-    });
+
   },
 
   /**
@@ -65,5 +62,8 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  buy: function() {
+      console.log("123")
   }
 })

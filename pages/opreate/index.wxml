@@ -1,0 +1,19 @@
+<!--pages/opreate/index.wxml-->
+  // wxml
+ 
+<view class="page">
+    <view class="page__hd">
+        <title-tool info="{{info}}" bindconfirm="yourSuccessCallback" bindfail="">
+          // 此处是插槽 可插入自定组件样式
+          <button>编辑抬头</button>
+        </title-tool>
+    </view>
+    <view class="page__bd page__bd_spacing">
+        <view class="button-sp-area">
+            <button class="weui-btn mini-btn" bindtap="buy"
+             type="primary" size="mini">购买</button>
+            <button class="weui-btn mini-btn" bindtap="setDisabled"
+             type="default" size="mini">返回</button>
+        </view>
+    </view>
+</view>

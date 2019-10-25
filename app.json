@@ -1,10 +1,12 @@
 {
   "pages": [
-    "pages/badge/badge",
     "pages/home/index",
+    "pages/badge/badge",
     "pages/logs/logs",
     "pages/preview/preview",
-    "pages/uploader/uploader"
+    "pages/uploader/uploader",
+    "pages/myinvoice/panel",
+    "pages/opreate/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -39,4 +41,5 @@
     ]
   },
   "sitemapLocation": "sitemap.json"
+  
 }
