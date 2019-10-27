@@ -25,6 +25,7 @@ Page({
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
+        console.log("1111111"+res)
         this.setData({
           userInfo: res.userInfo,
           hasUserInfo: true
@@ -35,10 +36,18 @@ Page({
       wx.getUserInfo({
         success: res => {
           app.globalData.userInfo = res.userInfo
+          console.log(res)
           this.setData({
             userInfo: res.userInfo,
             hasUserInfo: true
           })
+          var iv = res.iv
+
+          var pc = new WXBizDataCrypt(appId, sessionKey)
+
+          var data = pc.decryptData(encryptedData, iv)
+
+          console.log('解密后 data: ', data)
         }
       })
     }
