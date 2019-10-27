@@ -5,7 +5,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    title:"",
+    taxNumber: "",
+    bankName: "",
+    bankAccount: "",
+    accounts: ["单位", "个人"],
+    accountIndex: 1,
   },
 
   /**
@@ -65,5 +70,24 @@ Page({
   },
   buy: function() {
       console.log("123")
+  },
+  goback: function(){
+    wx.navigateBack()
+  },
+  invoiceTitle: function(){
+    let that=this
+    wx.chooseInvoiceTitle({
+      success(res) {
+        console.log(res)
+        that.setData({
+          title:res.title,
+          taxNumber: res.taxNumber,
+          bankName: res.bankName,
+          bankAccount: res.bankAccount,
+          accountIndex: res.type,
+        });
+        
+       }
+    })
   }
 })

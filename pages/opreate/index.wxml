@@ -1,19 +1,59 @@
 <!--pages/opreate/index.wxml-->
-  // wxml
- 
-<view class="page">
-    <view class="page__hd">
-        <title-tool info="{{info}}" bindconfirm="yourSuccessCallback" bindfail="">
-          // 此处是插槽 可插入自定组件样式
-          <button>编辑抬头</button>
-        </title-tool>
+
+    <view class="page__bd">
+     <button class="weui-btn" style="{{left}}" type="primary" bindtap="invoiceTitle">选择发票抬头</button>
+        <view class="weui-cells__title">发票信息</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell ">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">发票抬头</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" value="{{title}}" placeholder="请输入发票抬头"/>
+                </view>
+            </view>
+            <view class="weui-cell  weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">税号</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" value="{{taxNumber}}" placeholder="请输入税号" />
+                </view>
+            </view>
+        
+            <view class="weui-cell  weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">开户行</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" value="{{bankName}}" placeholder="请输入开户行（可选）" />
+                </view>
+            </view>
+            <view class="weui-cell  weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">开户行卡号</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" value="{{bankAccount}}" placeholder="请输入开户行卡号（可选）" />
+                </view>
+            </view>
+                 <view class="weui-cells__title">选择发票类型</view>
+       
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__bd">
+                    <picker value="{{accountIndex}}" range="{{accounts}}">
+                        <view class="weui-select">{{accounts[accountIndex]}}</view>
+                    </picker>
+                </view>
+            </view>
+        </view>
+        <view class="weui-cells__tips">税号和抬头必填</view>
     </view>
     <view class="page__bd page__bd_spacing">
         <view class="button-sp-area">
             <button class="weui-btn mini-btn" bindtap="buy"
              type="primary" size="mini">购买</button>
-            <button class="weui-btn mini-btn" bindtap="setDisabled"
+            <button class="weui-btn mini-btn" bindtap="goback"
              type="default" size="mini">返回</button>
         </view>
     </view>
-</view>
