@@ -41,13 +41,13 @@ Page({
             userInfo: res.userInfo,
             hasUserInfo: true
           })
-          var iv = res.iv
+          // var iv = res.iv
 
-          var pc = new WXBizDataCrypt(appId, sessionKey)
+          // var pc = new WXBizDataCrypt(appId, sessionKey)
 
-          var data = pc.decryptData(encryptedData, iv)
+          // var data = pc.decryptData(encryptedData, iv)
 
-          console.log('解密后 data: ', data)
+          // console.log('解密后 data: ', data)
         }
       })
     }

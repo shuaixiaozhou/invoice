@@ -68,8 +68,23 @@ Page({
   onShareAppMessage: function () {
 
   },
+  /**
+   * 购买发票调用微信支付
+   */
   buy: function() {
-      console.log("123")
+    //服务器端调用统一下单接口返回prepay_id 和调用sdk返回的paySign等字段
+      
+    wx.requestPayment(
+      {
+        'timeStamp': '1490840662',
+        'nonceStr': '5K8264ILTKCH16CQ2502SI8ZNMTM67VS',
+        'package': 'prepay_id=wx2017033010242291fcfe0db70013231072',
+        'signType': 'MD5',
+        'paySign': 'paySign',
+        'success': function (res) { console.log(res)},
+        'fail': function (res) { console.log(res) },
+        'complete': function (res) { console.log(res) }
+      })
   },
   goback: function(){
     wx.navigateBack()

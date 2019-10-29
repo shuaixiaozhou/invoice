@@ -6,12 +6,31 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+
+    wx.checkSession({
+      success() {
+        //session_key 未过期，并且在本生命周期一直有效
+      },
+      fail() {
+        // session_key 已经失效，需要重新执行登录流程
+        wx.login({
+          success(res) {
+            if (res.code) {
+              //发起网络请求
+              wx.request({
+                url: 'https://localhost:8080',
+                data: {
+                  code: res.code
+                }
+              })
+            } else {
+              console.log('登录失败！' + res.errMsg)
+            }
+          }
+        })
       }
     })
+  
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -21,10 +40,11 @@ App({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo
-
+              console.log(res)
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
+                console.log(this.userInfoReadyCallback)
                 this.userInfoReadyCallback(res)
               }
             }
