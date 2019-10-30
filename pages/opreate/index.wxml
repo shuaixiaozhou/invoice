@@ -1,6 +1,6 @@
 <!--pages/opreate/index.wxml-->
 
-    <view class="page__bd">
+    <view class="page__bd" >
      <button class="weui-btn" style="{{left}}" type="primary" bindtap="invoiceTitle">选择发票抬头</button>
         <view class="weui-cells__title">发票信息</view>
         <view class="weui-cells weui-cells_after-title">

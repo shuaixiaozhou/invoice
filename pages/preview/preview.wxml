@@ -20,7 +20,8 @@
                 </view>
             </view>
             <view class="weui-form-preview__ft">
-                <navigator class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active">联系卖家</navigator>
+                <view class="weui-form-preview__btn weui-form-preview__btn_default" bindtap="callMobile" >
+                联系卖家</view>
                 <navigator url="/pages/opreate/index" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">购买</navigator>
             </view>
         </view>
