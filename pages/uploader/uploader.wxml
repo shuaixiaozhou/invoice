@@ -6,7 +6,7 @@
                     <view class="weui-uploader">
                         <view class="weui-uploader__hd">
                           <view class="weui-uploader__overview">
-                              <view class="weui-uploader__title">上传待开票的二维码</view>
+                              <view class="weui-uploader__title">上传待开票的二维码或定额发票</view>
                               <view class="weui-uploader__info">{{files.length}}/1</view>
                           </view>
                           <view class="weui-uploader__tips">
@@ -26,6 +26,14 @@
                             </view>
                         </view>
                     </view>
+                </view>
+            </view>
+        </view>
+          <view class="weui-cells__title">请输入要售出的金额</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell ">
+                <view class="weui-cell__bd">
+                    <input class="weui-input" type="number"  placeholder="元" />
                 </view>
             </view>
         </view>
