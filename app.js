@@ -1,4 +1,5 @@
 //app.js
+var common = require("./pages/common/common.js")
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -8,21 +9,21 @@ App({
 
 
     wx.checkSession({
-      success() {
+      success(res) {
         //session_key 未过期，并且在本生命周期一直有效
+        console.log(res)
       },
       fail() {
         // session_key 已经失效，需要重新执行登录流程
         wx.login({
           success(res) {
-            if (res.code) {
+            if (res&&res.code) {
+              console.log(res)
               //发起网络请求
-              wx.request({
-                url: 'https://localhost:8080',
-                data: {
-                  code: res.code
-                }
-              })
+             let rest = common.login(res.code)
+              if (rest && rest.statusCode==200){
+                console.log("登录成功" + rest)
+              }
             } else {
               console.log('登录失败！' + res.errMsg)
             }
@@ -30,25 +31,54 @@ App({
         })
       }
     })
-  
+    var self = this
     // 获取用户信息
     wx.getSetting({
-      success: res => {
+      success(res) {
         if (res.authSetting['scope.userInfo']) {
+         
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
-              this.globalData.userInfo = res.userInfo
+              self.globalData.userInfo = res.userInfo
               console.log(res)
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
-              if (this.userInfoReadyCallback) {
-                console.log(this.userInfoReadyCallback)
-                this.userInfoReadyCallback(res)
+              if (self.userInfoReadyCallback) {
+                console.log(self.userInfoReadyCallback)
+                self.userInfoReadyCallback(res)
               }
+              //发送给后台
+              var url = "/wx/user/{appid}/info";
+              var sessionKey = wx.getStorageSync("sessionKey");
+              //请求后台获取用户信息
+              common.commonRequest({
+                  url: url,
+                  method: "POST",
+                  param:{
+                    sessionKey: sessionKey,
+                    signature: res.signature,
+                    rawData: res.rawData,
+                    encryptedData: res.encryptedData,
+                    iv: res.iv,
+                  },
+                  success: function (res) {
+                  console.log(res);
+                  if (res && res.sessionKey) {
+                    //用sessionkey和opeinid换取
+                    wx.setStorageSync("sessionKey", res.sessionKey)
+                    wx.setStorageSync("openid", res.openid)
+                    return res
+                  } else {
+                    return res
+                  }
+                }
+              })
             }
           })
+        }else{
+          console.log("用户没有打开自动授权 需要在右上角设置")
         }
       }
     })

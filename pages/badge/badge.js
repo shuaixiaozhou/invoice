@@ -2,6 +2,8 @@
 //获取应用实例
 const app = getApp()
 
+var common=require("../common/common.js")
+
 Page({
   data: {
     motto: 'Hello World',
@@ -17,6 +19,7 @@ Page({
   },
   onLoad: function () {
     if (app.globalData.userInfo) {
+      console.log("2222" )
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
@@ -32,6 +35,7 @@ Page({
         })
       }
     } else {
+      console.log("333")
       // 在没有 open-type=getUserInfo 版本的兼容处理
       wx.getUserInfo({
         success: res => {
@@ -59,5 +63,7 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+    //请求后台获取用户信息
+     
   }
 })
