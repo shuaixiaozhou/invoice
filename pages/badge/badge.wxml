@@ -2,13 +2,15 @@
     <view class="page__hd">
           <view class="userinfo">
               <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 授权获取头像昵称 </button>
+             
               <block wx:else>
                 <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
                 <text class="userinfo-nickname">{{userInfo.nickName}}</text>
               </block>
+              
             </view>
     </view>
-
+ <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">绑定手机号</button>
     <view class="page__bd">
         <!-- <view class="weui-cells__title">新消息提示跟摘要信息后，统一在列表右侧</view> -->
         <view class="weui-cells weui-cells_after-title">

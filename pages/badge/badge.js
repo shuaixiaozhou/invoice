@@ -64,6 +64,38 @@ Page({
       hasUserInfo: true
     })
     //请求后台获取用户信息
-     
+    //发送给后台
+    var url = "/wx/user/{appid}/info";
+    var sessionKey = wx.getStorageSync("sessionKey");
+    var res = e.detail;
+    
+    //请求后台获取用户信息
+    common.commonRequest({
+      url: url,
+      method: "POST",
+      param: {
+        sessionKey: encodeURIComponent(sessionKey),
+        signature: encodeURIComponent(res.signature),
+        rawData: encodeURIComponent(res.rawData),
+        encryptedData: encodeURIComponent(res.encryptedData),
+        iv: encodeURIComponent(res.iv),
+      },
+      success: function (res) {
+        console.log(res);
+        if (res && res.sessionKey) {
+          //用sessionkey和opeinid换取
+          wx.setStorageSync("sessionKey", res.sessionKey)
+          wx.setStorageSync("openid", res.openid)
+          return res
+        } else {
+          return res
+        }
+      }
+    })
+  },
+  getPhoneNumber(e) {
+    console.log(e.detail.errMsg)
+    console.log(e.detail.iv)
+    console.log(e.detail.encryptedData)
   }
 })

@@ -49,32 +49,7 @@ App({
                 console.log(self.userInfoReadyCallback)
                 self.userInfoReadyCallback(res)
               }
-              //发送给后台
-              var url = "/wx/user/{appid}/info";
-              var sessionKey = wx.getStorageSync("sessionKey");
-              //请求后台获取用户信息
-              common.commonRequest({
-                  url: url,
-                  method: "POST",
-                  param:{
-                    sessionKey: sessionKey,
-                    signature: res.signature,
-                    rawData: res.rawData,
-                    encryptedData: res.encryptedData,
-                    iv: res.iv,
-                  },
-                  success: function (res) {
-                  console.log(res);
-                  if (res && res.sessionKey) {
-                    //用sessionkey和opeinid换取
-                    wx.setStorageSync("sessionKey", res.sessionKey)
-                    wx.setStorageSync("openid", res.openid)
-                    return res
-                  } else {
-                    return res
-                  }
-                }
-              })
+             
             }
           })
         }else{
