@@ -94,8 +94,36 @@ Page({
     })
   },
   getPhoneNumber(e) {
-    console.log(e.detail.errMsg)
-    console.log(e.detail.iv)
-    console.log(e.detail.encryptedData)
+    console.log(e.detail)
+    //发送给后台
+    var url = "/wx/user/{appid}/phone";
+    var sessionKey = wx.getStorageSync("sessionKey");
+    var openid = wx.getStorageSync("openid");
+    var res = e.detail;
+
+    //请求后台获取用户信息
+    common.commonRequest({
+      url: url,
+      method: "POST",
+      param: {
+        sessionKey: encodeURIComponent(sessionKey),
+        signature: encodeURIComponent(res.signature),
+        rawData: encodeURIComponent(res.rawData),
+        encryptedData: encodeURIComponent(res.encryptedData),
+        iv: encodeURIComponent(res.iv),
+        openid: openid,
+      },
+      success: function (res) {
+        console.log(res);
+        if (res && res.sessionKey) {
+          //用sessionkey和opeinid换取
+          wx.setStorageSync("phoneNumber", res.phoneNumber)
+          wx.setStorageSync("purePhoneNumber", res.purePhoneNumber)
+          return res
+        } else {
+          return res
+        }
+      }
+    })
   }
 })
