@@ -1,17 +1,16 @@
-const serverUrl = "http://localhost:8080/"
+const serverUrl = "http://localhost:8082/"
 const appid = "wx4d2133359630715a"
 
 function login(code) {
   //换取sessionKey和openid
  var res = this.commonRequest({
-   url:"/wx/user/{appid}/login?code=" + code,
-   param: { "token": "123456" },
+   url:"/wx/user/{appid}/code2session?code=" + code,
    success: function (res) {
      console.log(res);
-     if (res && res.sessionKey ) {
+     if (res && res.data.sessionKey ) {
        //用sessionkey和opeinid换取
-       wx.setStorageSync("sessionKey", res.sessionKey)
-       wx.setStorageSync("openid", res.openid)
+       wx.setStorageSync("sessionKey", res.data.sessionKey)
+       wx.setStorageSync("openid", res.data.openid)
        return res
      } else {
        return res

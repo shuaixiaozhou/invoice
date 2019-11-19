@@ -65,8 +65,9 @@ Page({
     })
     //请求后台获取用户信息
     //发送给后台
-    var url = "/wx/user/{appid}/info";
+    var url = "/wx/user/{appid}/login";
     var sessionKey = wx.getStorageSync("sessionKey");
+    var openid = wx.getStorageSync("openid");
     var res = e.detail;
     
     //请求后台获取用户信息
@@ -79,13 +80,14 @@ Page({
         rawData: encodeURIComponent(res.rawData),
         encryptedData: encodeURIComponent(res.encryptedData),
         iv: encodeURIComponent(res.iv),
+        openid: openid,
       },
       success: function (res) {
         console.log(res);
-        if (res && res.sessionKey) {
+        if (res && res.data) {
           //用sessionkey和opeinid换取
-          wx.setStorageSync("sessionKey", res.sessionKey)
-          wx.setStorageSync("openid", res.openid)
+          wx.setStorageSync("userinfo", res.data)
+          wx.setStorageSync("token", res.data.token)
           return res
         } else {
           return res
