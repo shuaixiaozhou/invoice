@@ -77,7 +77,7 @@ Page({
       });
     }, 3000);
     //发送给后台
-    var url = "/invoice/add";
+    var url = "/api/v1/invoice/add";
     var token = wx.getStorageSync("token");
 
     //请求后台获取用户信息
