@@ -11,6 +11,7 @@ function login(code) {
        //用sessionkey和opeinid换取
        wx.setStorageSync("sessionKey", res.data.sessionKey)
        wx.setStorageSync("openid", res.data.openid)
+    
        return res
      } else {
        return res
@@ -25,20 +26,43 @@ function login(code) {
 //网络请求方法
 function commonRequest(model) {
   model.url = model.url.replace("{appid}", appid);
+  header= {
+    "Content-Type": "application/json"
+  };
+  if (model.header){
+    header = model.header;
+  }
   wx.request({
     url: serverUrl + model.url,
     data: model.param,
-    header: {
-      "Content-Type": "application/json"
-    },
+    header: header,
     method: model.method,
     success: function (res) {
       model.success(res.data)
     },
     fail: function (res) {
       wx.showModal({
-        title: res,
-        showCancel: false
+        "title": JSON.stringify(res),
+        "showCancel": false
+      })
+    }
+  })
+}
+//网络请求方法
+function commonUpload(model) {
+  model.url = model.url.replace("{appid}", appid);
+  wx.uploadFile({
+    url: serverUrl + model.url,
+    filePath: model.filePath,
+    name: 'file',
+    formData: model.param,
+    success: function (res) {
+      model.success(res.data)
+    },
+    fail: function (res) {
+      wx.showModal({
+        "title": JSON.stringify(res),
+        "showCancel": false
       })
     }
   })
@@ -46,5 +70,6 @@ function commonRequest(model) {
 // 导出模块
 module.exports = {
   commonRequest: commonRequest,
+  commonUpload: commonUpload,
   login: login
 }

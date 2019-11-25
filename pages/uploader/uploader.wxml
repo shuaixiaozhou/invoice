@@ -33,7 +33,7 @@
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell ">
                 <view class="weui-cell__bd">
-                    <input class="weui-input" type="number"  placeholder="元" />
+                    <input class="weui-input" type="number" bindinput="moneyInput"  placeholder="元" />
                 </view>
             </view>
         </view>
@@ -52,7 +52,7 @@
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell ">
                 <view class="weui-cell__bd">
-                    <input class="weui-input" placeholder="例：XX元面值发票" />
+                    <input class="weui-input" bindinput="titleInput" placeholder="例：XX元面值发票" />
                 </view>
             </view>
         </view>
@@ -61,22 +61,11 @@
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd">
-                    <textarea class="weui-textarea" placeholder="请输入描述" style="height: 3.3em" />
+                    <textarea class="weui-textarea" bindinput="noteInput" placeholder="请输入描述" style="height: 3.3em" />
                     <view class="weui-textarea-counter">0/200</view>
                 </view>
             </view>
         </view>
-        <checkbox-group bindchange="bindAgreeChange">
-            <label class="weui-agree" for="weuiAgree">
-                <view class="weui-agree__text">
-                    <checkbox class="weui-agree__checkbox" id="weuiAgree" value="agree" checked="{{isAgree}}" />
-                    <view class="weui-agree__checkbox-icon">
-                        <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="9" wx:if="{{isAgree}}"></icon>
-                    </view>
-                    阅读并同意<navigator url="" class="weui-agree__link">《相关条款》</navigator>
-                </view>
-            </label>
-        </checkbox-group>
 
         <view class="weui-btn-area">
             <button class="weui-btn" type="primary" bindtap="showTopTips">确定</button>

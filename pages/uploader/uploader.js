@@ -1,27 +1,21 @@
+var common = require("../common/common.js")
+
 Page({
     data: {
         files: [],
+        urls:[],
         message:"请选择要上传的二维码或定额发票图片",
          showTopTips: false,
-        radioItems: [
-          { name: 'cell standard', value: '0' },
-          { name: 'cell standard', value: '1', checked: true }
-        ],
-        checkboxItems: [
-          { name: 'standard is dealt for u.', value: '0', checked: true },
-          { name: 'standard is dealicient for u.', value: '1' }
-        ],
-
+       
         date: "2016-09-01",
         time: "12:01",
-
-        countryCodes: ["+86", "+80", "+84", "+87"],
-        countryCodeIndex: 0,
-
         accounts: ["扫码开票", "定额发票"],
         accountIndex: 0,
 
-        isAgree: false
+        isAgree: false,
+        money:0,
+        title: "",
+        note: "",
     },
     chooseImage: function (e) {
       if (this.data.files.length > 0) {
@@ -39,6 +33,27 @@ Page({
                 that.setData({
                     files: that.data.files.concat(res.tempFilePaths)
                 });
+                //请求后台上传图片
+                //发送给后台
+                var url = "/api/common/upload";
+          
+                console.log(res)
+                var thattt = that;
+                common.commonUpload({
+                  url: url,
+                  filePath: res.tempFilePaths[0],
+                  success: function (res) {
+                    console.log(res);
+                    if (res && res.data) {
+                      thattt.setData({
+                        urls: thattt.data.urls.concat(res.data)
+                      });
+                      return res
+                    } else {
+                      return res
+                    }
+                  }
+                })
             }
         })
    
@@ -48,6 +63,7 @@ Page({
             current: e.currentTarget.id, // 当前显示图片的http链接
             urls: this.data.files // 需要预览的图片http链接列表
         })
+
     },
   showTopTips: function () {
     //保存按钮触发
@@ -60,18 +76,57 @@ Page({
         showTopTips: false
       });
     }, 3000);
+    //发送给后台
+    var url = "/invoice/add";
+    var token = wx.getStorageSync("token");
+
+    //请求后台获取用户信息
+    common.commonRequest({
+      url: url,
+      method: "POST",
+      header:{
+        "token":token,
+        "Content-Type": "application/json",
+      },
+      param: {
+        "title": this.data.title,
+        "note": this.data.note,
+        "url": this.data.urls[0],
+        "money": this.data.money,
+        "type": this.data.accountIndex,
+      },
+      success: function (res) {
+        console.log(res);
+        if (res && res.data) {
+          //用sessionkey和opeinid换取
+          wx.setStorageSync("userinfo", res.data)
+          wx.setStorageSync("token", res.data.token)
+          return res
+        } else {
+          return res
+        }
+      }
+    })
   },
 
   bindAccountChange: function (e) {
-    console.log('picker account 发生选择改变，携带值为', e.detail.value);
-
     this.setData({
       accountIndex: e.detail.value
     })
   },
-  bindAgreeChange: function (e) {
+  moneyInput: function (e) {
     this.setData({
-      isAgree: !!e.detail.value.length
-    });
-  }
+      money: e.detail.value
+    })
+  }, 
+  titleInput: function (e) {
+    this.setData({
+      title: e.detail.value
+    })
+  }, 
+  noteInput: function (e) {
+    this.setData({
+      note: e.detail.value
+    })
+  },
 });
