@@ -26,7 +26,7 @@ function login(code) {
 //网络请求方法
 function commonRequest(model) {
   model.url = model.url.replace("{appid}", appid);
-  header= {
+  var header= {
     "Content-Type": "application/json"
   };
   if (model.header){
