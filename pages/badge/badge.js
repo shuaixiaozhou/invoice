@@ -87,7 +87,7 @@ Page({
         if (res && res.data) {
           //用sessionkey和opeinid换取
           wx.setStorageSync("userinfo", res.data)
-          wx.setStorageSync("token", res.data.token)
+          wx.setStorageSync("token", res.data.openid)
           return res
         } else {
           return res

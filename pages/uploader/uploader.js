@@ -92,15 +92,16 @@ Page({
         "title": this.data.title,
         "note": this.data.note,
         "url": this.data.urls[0],
-        "money": this.data.money,
+        "money": this.data.money*100,
         "type": this.data.accountIndex,
       },
       success: function (res) {
         console.log(res);
         if (res && res.data) {
-          //用sessionkey和opeinid换取
-          wx.setStorageSync("userinfo", res.data)
-          wx.setStorageSync("token", res.data.token)
+          console.log(res)
+          wx.switchTab({
+            url: '/pages/home/index',
+          })
           return res
         } else {
           return res
