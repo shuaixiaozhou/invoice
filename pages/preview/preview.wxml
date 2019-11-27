@@ -1,28 +1,44 @@
 <view class="page">
         <view >
-        <image src='http://n4.hdfimg.com/g2/M03/BA/44/w4YBAF1Sdm6AUuvWAAADzIJNX7A745.png?_ms_=a9e3'></image>
+        <image src='{{url}}'></image>
         </view>
-        <view class="page__desc">100元发票</view>
     <view class="page__bd">
         <view class="weui-form-preview">
             <view class="weui-form-preview__hd">
                 <view class="weui-form-preview__label">付款金额</view>
-                <view class="weui-form-preview__value_in-hd">¥3.00</view>
+                <view class="weui-form-preview__value_in-hd">¥{{money/100.0}}</view>
             </view>
             <view class="weui-form-preview__bd">
                 <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">商品</view>
-                    <view class="weui-form-preview__value">100元电子发票</view>
+                    <view class="weui-form-preview__label">标题</view>
+                    <view class="weui-form-preview__value">{{title}}</view>
                 </view>
                 <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">标题</view>
-                    <view class="weui-form-preview__value">限时今天出售</view>
+                    <view class="weui-form-preview__label">描述</view>
+                    <view class="weui-form-preview__value">{{note}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">发票类型</view>
+                    <view class="weui-form-preview__value">
+                      <block wx:if="{{type==0}}">
+                        扫码发票
+                      </block>
+                      <block wx:if="{{type==1}}">
+                        固定发票
+                      </block>
+                    </view>
                 </view>
             </view>
             <view class="weui-form-preview__ft">
                 <view class="weui-form-preview__btn weui-form-preview__btn_default" bindtap="callMobile" >
                 联系卖家</view>
-                <navigator url="/pages/opreate/index" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">购买</navigator>
+                <block wx:if="{{type==0}}">
+                      <navigator url="/pages/opreate/index" class="weui-form-preview__btn weui-form-preview__btn_primary"       hover-class="weui-form-preview__btn_active">购买</navigator>
+                </block>
+            <block wx:if="{{type==1}}">
+                        <view class="weui-form-preview__btn weui-form-preview__btn_primary" bindtap="buy" >
+                购买</view>
+                </block>
             </view>
         </view>
     </view>

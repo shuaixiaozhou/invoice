@@ -57,7 +57,7 @@ function commonUpload(model) {
     name: 'file',
     formData: model.param,
     success: function (res) {
-      model.success(res.data)
+      model.success(JSON.parse(res.data))
     },
     fail: function (res) {
       wx.showModal({

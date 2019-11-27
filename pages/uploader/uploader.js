@@ -3,7 +3,7 @@ var common = require("../common/common.js")
 Page({
     data: {
         files: [],
-        urls:[],
+        urls:"",
         message:"请选择要上传的二维码或定额发票图片",
          showTopTips: false,
        
@@ -46,7 +46,7 @@ Page({
                     console.log(res);
                     if (res && res.data) {
                       thattt.setData({
-                        urls: thattt.data.urls.concat(res.data)
+                        urls: res.data
                       });
                       return res
                     } else {
@@ -91,14 +91,14 @@ Page({
       param: {
         "title": this.data.title,
         "note": this.data.note,
-        "url": this.data.urls[0],
+        "url": this.data.urls,
         "money": this.data.money*100,
         "type": this.data.accountIndex,
       },
       success: function (res) {
         console.log(res);
         if (res && res.data) {
-          console.log(res)
+      
           wx.switchTab({
             url: '/pages/home/index',
           })

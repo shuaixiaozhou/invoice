@@ -1,12 +1,13 @@
 // pages/home/index.js
 var base64 = require("../../image/base64");
+var common = require("../common/common.js")
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    list:[{"price":100,"title":""},{}]
+    list:[]
   
   },
 
@@ -14,9 +15,31 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      icon: "http://n4.hdfimg.com/g2/M03/BA/44/w4YBAF1Sdm6AUuvWAAADzIJNX7A745.png?_ms_=a9e3"
-    });
+    //发送给后台
+    var url = "/api/v1/invoice/list";
+    var token = wx.getStorageSync("token");
+    var that=this;
+    //请求后台获取用户信息
+    common.commonRequest({
+      url: url,
+      method: "GET",
+      header: {
+        "token": token,
+        "Content-Type": "application/json",
+      },
+      success: function (res) {
+        console.log(res);
+        if (res && res.data) {
+          that.setData({
+            list:res.data
+          });
+          return res
+        } else {
+          return res
+        }
+      }
+    })
+
   },
 
   /**
