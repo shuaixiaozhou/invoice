@@ -30,15 +30,23 @@
                 </view>
             </view>
             <view class="weui-form-preview__ft">
-                <view class="weui-form-preview__btn weui-form-preview__btn_default" bindtap="callMobile" >
-                联系卖家</view>
-                <block wx:if="{{type==0}}">
-                      <navigator url="/pages/opreate/index?id={{id}}" class="weui-form-preview__btn weui-form-preview__btn_primary"       hover-class="weui-form-preview__btn_active">购买</navigator>
-                </block>
-            <block wx:if="{{type==1}}">
-                        <view class="weui-form-preview__btn weui-form-preview__btn_primary" bindtap="buy" >
-                购买</view>
-                </block>
+              <block wx:if="{{tag==0}}">
+                  <view class="weui-form-preview__btn weui-form-preview__btn_default" bindtap="deleteMethod" >
+                     删除
+                  </view>
+                   <view class="weui-form-preview__btn weui-form-preview__btn_primary" bindtap="send" >
+                      已发货
+                    </view>
+              </block>
+
+                <block wx:if="{{tag==1}}">
+                 <view class="weui-form-preview__btn weui-form-preview__btn_default" bindtap="backMoney"  >
+                  申请退款
+                  </view>
+                    <view class="weui-form-preview__btn weui-form-preview__btn_primary" bindtap="confirm" >
+                     确认收货
+                    </view>
+               </block>
             </view>
         </view>
     </view>

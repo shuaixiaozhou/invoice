@@ -21,12 +21,16 @@
                 </view>
                 
             </navigator>
-            <navigator url="/pages/myinvoice/panel"  class="weui-cell weui-cell_access">
+            <navigator url="/pages/invoice/invoice"  class="weui-cell weui-cell_access">
                 <view class="weui-cell__bd">我的发票列表</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size: 0">
                 </view>
            </navigator>
-            
+              <navigator url="/pages/order/order"  class="weui-cell weui-cell_access">
+                <view class="weui-cell__bd">我的订单列表</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size: 0">
+                </view>
+           </navigator>
               <!--  <view class="weui-cell weui-cell_access">
                 <view class="weui-cell__bd">设置</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size: 0">

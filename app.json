@@ -4,8 +4,10 @@
     "pages/badge/badge",
     "pages/logs/logs",
     "pages/preview/preview",
+    "pages/mypreview/preview",
     "pages/uploader/uploader",
-    "pages/myinvoice/panel",
+    "pages/order/order",
+    "pages/invoice/invoice",
     "pages/opreate/index"
   ],
   "window": {

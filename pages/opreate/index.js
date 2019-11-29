@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    id:0,
     title:"",
     taxNumber: "",
     bankName: "",
@@ -17,7 +18,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      id: options.id
+    })
   },
 
   /**
@@ -72,19 +75,67 @@ Page({
    * 购买发票调用微信支付
    */
   buy: function() {
-    //服务器端调用统一下单接口返回prepay_id 和调用sdk返回的paySign等字段
-      
-    wx.requestPayment(
-      {
-        'timeStamp': '1490840662',
-        'nonceStr': '5K8264ILTKCH16CQ2502SI8ZNMTM67VS',
-        'package': 'prepay_id=wx2017033010242291fcfe0db70013231072',
-        'signType': 'MD5',
-        'paySign': 'paySign',
-        'success': function (res) { console.log(res)},
-        'fail': function (res) { console.log(res) },
-        'complete': function (res) { console.log(res) }
-      })
+    //发送给后台
+    var url1 = "/api/v1/order/addUserOrder";
+    var thatt = this;
+    //请求后台获取用户信息
+    common.commonRequest({
+      url: url1,
+      method: "POST",
+      header: {
+        "token": token,
+        "Content-Type": "application/json",
+      },
+      param: {
+        id: thatt.data.id,
+        title: thatt.data.title,
+        orderNote: thatt.data.orderNote,
+        bankName: thatt.data.bankName,
+        bankAccount: thatt.data.bankAccount,
+        accountType: thatt.data.accountIndex,
+      },
+      success: function (res) {
+        console.log(res);
+        if (res && res.data) {
+          //统一下单接口
+          //发送给后台
+          var url = "/api/v1/mall/wxpay/payinfoByOrder/miniprogram?orderNo=" + res.data;
+
+          var that = thatt;
+          //请求后台获取用户信息
+          common.commonRequest({
+            url: url,
+            method: "GET",
+            header: {
+              "token": token,
+              "Content-Type": "application/json",
+            },
+            success: function (res) {
+              console.log(res);
+              if (res && res.data) {
+                wx.requestPayment(
+                  {
+                    'timeStamp': res.data.timeStamp,
+                    'nonceStr': res.data.nonceStr,
+                    'package': res.data.package,
+                    'signType': res.data.signType,
+                    'paySign': res.data.sign,
+                    'success': function (res) { console.log(res) },
+                    'fail': function (res) { console.log(res) },
+                    'complete': function (res) { console.log(res) }
+                  })
+                return res
+              } else {
+                return res
+              }
+            }
+          })
+          return res
+        } else {
+          return res
+        }
+      }
+    })
   },
   goback: function(){
     wx.navigateBack()
