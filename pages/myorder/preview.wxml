@@ -30,14 +30,13 @@
                 </view>
             </view>
             <view class="weui-form-preview__ft">
-           
-                  <view class="weui-form-preview__btn weui-form-preview__btn_default" bindtap="deleteMethod" >
-                     删除
+                 <view class="weui-form-preview__btn weui-form-preview__btn_default" bindtap="backMoney"  >
+                  申请退款
                   </view>
-                   <view class="weui-form-preview__btn weui-form-preview__btn_primary" bindtap="send" >
-                      已发货
+                    <view class="weui-form-preview__btn weui-form-preview__btn_primary" bindtap="confirm" >
+                     确认收货
                     </view>
-          
+     
             </view>
         </view>
     </view>
