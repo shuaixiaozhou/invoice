@@ -5,6 +5,7 @@
     "pages/logs/logs",
     "pages/preview/preview",
     "pages/mypreview/preview",
+    "pages/myorder/preview",
     "pages/uploader/uploader",
     "pages/order/order",
     "pages/invoice/invoice",

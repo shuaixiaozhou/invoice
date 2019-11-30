@@ -1,7 +1,10 @@
 <view class="page">
     <view class="page__bd">
+      <view >
+        <image src='{{url}}'></image>
+        </view>
         <view class="weui-form-preview">
-            <view class="weui-form-preview__item">
+            <view class="weui-form-preview__hd">
                     <view class="weui-form-preview__label">订单id</view>
                     <view class="weui-form-preview__value">{{orderId}}</view>
                 </view>
@@ -50,13 +53,15 @@
                 </view>
             </view>
             <view class="weui-form-preview__ft">
-                 <view class="weui-form-preview__btn weui-form-preview__btn_default" bindtap="backMoney"  >
+            <block wx:if="{{orderStatus==110||orderStatus==105}}">
+            <view class="weui-form-preview__btn weui-form-preview__btn_default" bindtap="backMoney"  >
                   申请退款
                   </view>
                     <view class="weui-form-preview__btn weui-form-preview__btn_primary" bindtap="confirm" >
                      确认收货
                     </view>
-     
+            </block>
+                
             </view>
         </view>
     </view>

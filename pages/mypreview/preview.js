@@ -2,7 +2,7 @@
 var common = require("../common/common.js")
 Page({
   data:{
-    id:0,
+    id:"",
     url:"",
     money: 0,
     title: "",
@@ -86,6 +86,16 @@ Page({
                 title: '错误',
                 content: res.message,
               })
+            }else{
+              wx.showModal({
+                title: '提示',
+                content: '成功',
+                success(res) {
+                  wx.navigateBack({
+                    delta: 2
+                  })
+                }
+              })
             }
           }
       }
@@ -130,7 +140,7 @@ Page({
       },
       param: {
         "status": 2,
-        "id": thatt.id,
+        "id": thatt.data.id,
       },
       success: function (res) {
         console.log(res);
@@ -140,7 +150,22 @@ Page({
               title: '错误',
               content: res.message,
             })
+          } else {
+            wx.showModal({
+              title: '提示',
+              content: '成功',
+              success(res) {
+                wx.navigateBack({
+                  delta: 2
+                })
+              }
+            })
           }
+        } else {
+          wx.showModal({
+            title: '错误',
+            content: '服务器异常',
+          })
         }
       }
     })
@@ -182,7 +207,7 @@ Page({
       },
       param:{
         "status": 4,
-        "id":thatt.id,
+        "id":thatt.data.id,
       },
       success: function (res) {
         console.log(res);
@@ -196,6 +221,11 @@ Page({
             wx.showModal({
               title: '提示',
               content: '成功',
+              success(res) {
+                wx.navigateBack({
+                  delta: 2
+                })
+              }
             })
           }
         }else{

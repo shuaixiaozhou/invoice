@@ -8,6 +8,7 @@ Page({
     status: 0,
     email: "",
     sellerMobile:0,
+    url:"",
   },
   onLoad: function(options) {
     
@@ -71,7 +72,7 @@ Page({
       },
       param: {
         "orderStatus": 230,
-        "id": thatt.orderId,
+        "id": thatt.data.orderId,
       },
       success: function (res) {
         console.log(res);
@@ -80,6 +81,16 @@ Page({
             wx.showModal({
               title: '错误',
               content: res.message,
+            })
+          }else{
+            wx.showModal({
+              title: '提示',
+              content: '成功',
+              success(res) {
+                wx.navigateBack({
+                  delta: 2
+                })
+              }
             })
           }
         }
@@ -123,7 +134,7 @@ Page({
       },
       param: {
         "orderStatus": 115,
-        "id": thatt.orderId,
+        "id": thatt.data.orderId,
       },
       success: function (res) {
         console.log(res);
@@ -132,6 +143,16 @@ Page({
             wx.showModal({
               title: '错误',
               content: res.message,
+            })
+          }else{
+               wx.showModal({
+              title: '提示',
+              content: '成功',
+              success(res) {
+                wx.navigateBack({
+                  delta: 2
+                })
+              }
             })
           }
         }

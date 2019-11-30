@@ -132,6 +132,7 @@ Page({
         id: thatt.data.id,
         title: thatt.data.title,
         orderNote: thatt.data.orderNote,
+        taxNumber: thatt.data.taxNumber,
         bankName: thatt.data.bankName,
         bankAccount: thatt.data.bankAccount,
         accountType: thatt.data.accountIndex,
@@ -176,6 +177,10 @@ Page({
                   })
                 return res
               } else {
+                wx.showModal({
+                  title: '支付错误',
+                  content: res.message,
+                })
                 return res
               }
             }

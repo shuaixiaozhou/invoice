@@ -9,6 +9,29 @@
                       <image src="{{item.url}}" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
                   </view>
                   <view class="weui-cell__bd">{{item.title}}</view>
+                  <view class="weui-cell__ft ">
+                    <block wx:if="{{item.status==0}}">
+                    待审核
+                   </block>
+                   <block wx:if="{{item.status==1}}">
+                    已上架
+                   </block>
+                  <block wx:if="{{item.status==2}}">
+                    已下架
+                   </block>
+                    <block wx:if="{{item.status==3}}">
+                    已售出
+                   </block>
+                  <block wx:if="{{item.status==4}}">
+                    已开票
+                   </block>
+                  <block wx:if="{{item.status==5}}">
+                    确认完成
+                   </block>
+                  <block wx:if="{{item.status==6}}">
+                    申请退款
+                   </block>
+                  </view>
                   <view class="weui-cell__ft weui-cell__ft_in-access">￥{{item.money/100.0}}</view>
               </navigator>
             </block>
