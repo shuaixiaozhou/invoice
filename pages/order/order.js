@@ -10,6 +10,7 @@ Page({
     listwait: [],
     listhad: [],
     listcom: [],
+    listback: [],
   },
   /**
    * 生命周期函数--监听页面加载
@@ -34,6 +35,8 @@ Page({
           var listwait = new Array();
           var listhad = new Array();
           var listcom = new Array();
+          var listback = new Array();
+          
           for(let i=0;i<list.length;i++){
             if (list[i].orderStatus==105){
               listwait.push(list[i]);
@@ -41,12 +44,15 @@ Page({
               listwalisthadit.push(list[i]);
             } else if (list[i].orderStatus == 115) {
               listcom.push(list[i]);
+            } else if (list[i].orderStatus == 230) {
+              listback.push(list[i]);
             }
           }
           that.setData({
             listwait: listwait,
             listhad: listhad,
             listcom: listcom,
+            listback: listback,
           });
           return res
         } else {

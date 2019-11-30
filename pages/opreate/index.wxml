@@ -37,7 +37,15 @@
                     <input class="weui-input" value="{{bankAccount}}" placeholder="请输入开户行卡号（可选）" />
                 </view>
             </view>
-                 <view class="weui-cells__title">选择发票类型</view>
+                <view class="weui-cell  weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">邮箱</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" value="{{email}}" bindinput="bindKeyInput" placeholder="请输入邮箱" />
+                </view>
+            </view>
+            <view class="weui-cells__title">选择发票类型</view>
        
             <view class="weui-cell weui-cell_select">
                 <view class="weui-cell__bd">

@@ -1,4 +1,6 @@
 // pages/opreate/index.js
+
+var common = require("../common/common.js")
 Page({
 
   /**
@@ -12,6 +14,7 @@ Page({
     bankAccount: "",
     accounts: ["单位", "个人"],
     accountIndex: 1,
+    email: "",
   },
 
   /**
@@ -71,10 +74,49 @@ Page({
   onShareAppMessage: function () {
 
   },
+  bindKeyInput: function (e) {
+    this.setData({
+      email: e.detail.value
+    })
+  },
+  bindKeyInput: function (e) {
+    this.setData({
+      email: e.detail.value
+    })
+  },
   /**
    * 购买发票调用微信支付
    */
   buy: function() {
+ 
+    if(!this.data.email){
+      wx.showModal({
+        title: '提示',
+        content: '请填写邮箱地址',
+      })
+    }
+    var token = wx.getStorageSync("token");
+    if (!token) {
+      wx.showModal({
+        title: '支付错误',
+        content: '请先授权登陆',
+      })
+      wx.switchTab({
+        url: 'pages/badge/badge',
+      })
+      return
+    }
+    var userinfo = wx.getStorageSync("userinfo");
+    if (!userinfo || !userinfo.mobile) {
+      wx.showModal({
+        title: '支付错误',
+        content: '请先绑定手机号',
+      })
+      wx.switchTab({
+        url: 'pages/badge/badge',
+      })
+      return
+    }
     //发送给后台
     var url1 = "/api/v1/order/addUserOrder";
     var thatt = this;
@@ -93,9 +135,17 @@ Page({
         bankName: thatt.data.bankName,
         bankAccount: thatt.data.bankAccount,
         accountType: thatt.data.accountIndex,
+        email: thatt.data.email,
       },
       success: function (res) {
         console.log(res);
+        if(res &&res.code!=1000){
+          wx.showModal({
+            title: '错误',
+            content: res.message,
+          })
+          return
+        }
         if (res && res.data) {
           //统一下单接口
           //发送给后台

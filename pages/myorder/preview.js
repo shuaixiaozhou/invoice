@@ -2,19 +2,17 @@
 var common = require("../common/common.js")
 Page({
   data:{
-    id:0,
-    url:"",
-    money: 0,
-    title: "",
-    note: "",
-    mobile: "",
-    type:0,
-    tag:2,
+    orderId:"",
+    orderAmt: 0,
+    orderTitle: "",
+    status: 0,
+    email: "",
+    sellerMobile:0,
   },
   onLoad: function(options) {
     
     //发送给后台
-    var url = "/api/v1/invoice/detail?id=" + options.id+"&my=true";
+    var url = "/api/v1/order/detail?id=" + options.id;
     var token = wx.getStorageSync("token");
     var that = this;
     //请求后台获取用户信息
@@ -37,14 +35,9 @@ Page({
     })
 
   },
-  callMobile :function(){
-    wx.makePhoneCall({
-      phoneNumber: this.data.mobile//仅为示例，并非真实的电话号码
-    })
-  },
-  deleteMethod :function(){
+  backMoney: function () {
     var token = wx.getStorageSync("token");
-    if (!token){
+    if (!token) {
       wx.showModal({
         title: '错误',
         content: '请先授权登陆',
@@ -55,7 +48,7 @@ Page({
       return
     }
     var userinfo = wx.getStorageSync("userinfo");
-    if (!userinfo || !userinfo.mobile){
+    if (!userinfo || !userinfo.mobile) {
       wx.showModal({
         title: '错误',
         content: '请先绑定手机号',
@@ -66,33 +59,35 @@ Page({
       return
     }
     //发送给后台
-    var url1 = "/api/v1/invoice/delete?id"+this.data.id;
-    var thatt =this ;
+    var url1 = "/api/v1/order/modifyOrder";
+    var thatt = this;
     //请求后台获取用户信息
     common.commonRequest({
       url: url1,
-      method: "GET",
+      method: "POST",
       header: {
         "token": token,
         "Content-Type": "application/json",
       },
+      param: {
+        "orderStatus": 230,
+        "id": thatt.orderId,
+      },
       success: function (res) {
-          console.log(res);
+        console.log(res);
         if (res && res.data) {
-            if (res.code != 1000) {
-              wx.showModal({
-                title: '错误',
-                content: res.message,
-              })
-            }
+          if (res.code != 1000) {
+            wx.showModal({
+              title: '错误',
+              content: res.message,
+            })
           }
+        }
       }
     })
-   
 
- 
   }, 
-  send: function () {
+  confirm: function () {
     var token = wx.getStorageSync("token");
     if (!token) {
       wx.showModal({
@@ -116,15 +111,19 @@ Page({
       return
     }
     //发送给后台
-    var url1 = "/api/v1/invoice/delete?id" + this.data.id;
+    var url1 = "/api/v1/order/modifyOrder";
     var thatt = this;
     //请求后台获取用户信息
     common.commonRequest({
       url: url1,
-      method: "GET",
+      method: "POST",
       header: {
         "token": token,
         "Content-Type": "application/json",
+      },
+      param: {
+        "orderStatus": 115,
+        "id": thatt.orderId,
       },
       success: function (res) {
         console.log(res);
@@ -139,56 +138,5 @@ Page({
       }
     })
 
-
-
-  }, deleteMethod: function () {
-    var token = wx.getStorageSync("token");
-    if (!token) {
-      wx.showModal({
-        title: '错误',
-        content: '请先授权登陆',
-      })
-      wx.switchTab({
-        url: 'pages/badge/badge',
-      })
-      return
-    }
-    var userinfo = wx.getStorageSync("userinfo");
-    if (!userinfo || !userinfo.mobile) {
-      wx.showModal({
-        title: '错误',
-        content: '请先绑定手机号',
-      })
-      wx.switchTab({
-        url: 'pages/badge/badge',
-      })
-      return
-    }
-    //发送给后台
-    var url1 = "/api/v1/invoice/delete?id" + this.data.id;
-    var thatt = this;
-    //请求后台获取用户信息
-    common.commonRequest({
-      url: url1,
-      method: "GET",
-      header: {
-        "token": token,
-        "Content-Type": "application/json",
-      },
-      success: function (res) {
-        console.log(res);
-        if (res && res.data) {
-          if (res.code != 1000) {
-            wx.showModal({
-              title: '错误',
-              content: res.message,
-            })
-          }
-        }
-      }
-    })
-
-
-
-  },
+  }, 
 });

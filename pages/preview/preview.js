@@ -9,6 +9,7 @@ Page({
     note: "",
     mobile: "",
     type:0,
+    email:"",
   },
   onLoad: function(options) {
     
@@ -36,12 +37,24 @@ Page({
     })
 
   },
+  bindKeyInput: function (e) {
+    this.setData({
+      email: e.detail.value
+    })
+  },
   callMobile :function(){
     wx.makePhoneCall({
       phoneNumber: this.data.mobile//仅为示例，并非真实的电话号码
     })
   },
   buy :function(){
+
+    if (!this.data.email) {
+      wx.showModal({
+        title: '提示',
+        content: '请填写邮箱地址',
+      })
+    }
     var token = wx.getStorageSync("token");
     if (!token){
       wx.showModal({
@@ -78,9 +91,17 @@ Page({
       param: {
         id: thatt.data.id,
         orderNote: thatt.data.orderNote,
+        email: thatt.data.email,
       },
       success: function (res) {
         console.log(res);
+        if (res && res.code != 1000) {
+          wx.showModal({
+            title: '错误',
+            content: res.message,
+          })
+          return
+        }
         if (res && res.data) {
           //统一下单接口
           //发送给后台

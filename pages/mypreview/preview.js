@@ -9,7 +9,9 @@ Page({
     note: "",
     mobile: "",
     type:0,
-    tag:2,
+    email:"",
+    userInvoiceTitle:"",
+    userInvoiceTaxNumber: "",
   },
   onLoad: function(options) {
     
@@ -92,6 +94,58 @@ Page({
 
  
   }, 
+  downMethod: function () {
+    var token = wx.getStorageSync("token");
+    if (!token) {
+      wx.showModal({
+        title: '错误',
+        content: '请先授权登陆',
+      })
+      wx.switchTab({
+        url: 'pages/badge/badge',
+      })
+      return
+    }
+    var userinfo = wx.getStorageSync("userinfo");
+    if (!userinfo || !userinfo.mobile) {
+      wx.showModal({
+        title: '错误',
+        content: '请先绑定手机号',
+      })
+      wx.switchTab({
+        url: 'pages/badge/badge',
+      })
+      return
+    }
+    //发送给后台
+    var url1 = "/api/v1/invoice/modify";
+    var thatt = this;
+    //请求后台获取用户信息
+    common.commonRequest({
+      url: url1,
+      method: "POST",
+      header: {
+        "token": token,
+        "Content-Type": "application/json",
+      },
+      param: {
+        "status": 2,
+        "id": thatt.id,
+      },
+      success: function (res) {
+        console.log(res);
+        if (res && res.data) {
+          if (res.code != 1000) {
+            wx.showModal({
+              title: '错误',
+              content: res.message,
+            })
+          }
+        }
+      }
+    })
+
+  }, 
   send: function () {
     var token = wx.getStorageSync("token");
     if (!token) {
@@ -116,15 +170,19 @@ Page({
       return
     }
     //发送给后台
-    var url1 = "/api/v1/invoice/delete?id" + this.data.id;
+    var url1 = "/api/v1/invoice/modify";
     var thatt = this;
     //请求后台获取用户信息
     common.commonRequest({
       url: url1,
-      method: "GET",
+      method: "POST",
       header: {
         "token": token,
         "Content-Type": "application/json",
+      },
+      param:{
+        "status": 4,
+        "id":thatt.id,
       },
       success: function (res) {
         console.log(res);
@@ -134,61 +192,22 @@ Page({
               title: '错误',
               content: res.message,
             })
-          }
-        }
-      }
-    })
-
-
-
-  }, deleteMethod: function () {
-    var token = wx.getStorageSync("token");
-    if (!token) {
-      wx.showModal({
-        title: '错误',
-        content: '请先授权登陆',
-      })
-      wx.switchTab({
-        url: 'pages/badge/badge',
-      })
-      return
-    }
-    var userinfo = wx.getStorageSync("userinfo");
-    if (!userinfo || !userinfo.mobile) {
-      wx.showModal({
-        title: '错误',
-        content: '请先绑定手机号',
-      })
-      wx.switchTab({
-        url: 'pages/badge/badge',
-      })
-      return
-    }
-    //发送给后台
-    var url1 = "/api/v1/invoice/delete?id" + this.data.id;
-    var thatt = this;
-    //请求后台获取用户信息
-    common.commonRequest({
-      url: url1,
-      method: "GET",
-      header: {
-        "token": token,
-        "Content-Type": "application/json",
-      },
-      success: function (res) {
-        console.log(res);
-        if (res && res.data) {
-          if (res.code != 1000) {
+          }else{
             wx.showModal({
-              title: '错误',
-              content: res.message,
+              title: '提示',
+              content: '成功',
             })
           }
+        }else{
+          wx.showModal({
+            title: '错误',
+            content: '服务器异常',
+          })
         }
       }
     })
 
 
 
-  },
+  }
 });

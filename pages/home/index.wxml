@@ -3,7 +3,7 @@
         <view class="weui-cells__title">发票列表</view>
         <view class="weui-cells weui-cells_after-title"
            wx:if="{{list.length>0}}">
-           <block wx:for="{{list}}"> 
+           <block wx:for="{{list}}" wx:key="id"> 
               <navigator url="/pages/preview/preview?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                   <view class="weui-cell__hd">
                       <image src="{{item.url}}" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>

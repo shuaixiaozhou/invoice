@@ -29,7 +29,16 @@
                     </view>
                 </view>
             </view>
+              <view class="page-section">
+                <view class="weui-cells__title">购买前请输入邮箱</view>
+                <view class="weui-cells weui-cells_after-title">
+                  <view class="weui-cell weui-cell_input">
+                    <input class="weui-input" bindinput="bindKeyInput" placeholder="XXXX@163.com"/>
+                  </view>
+                </view>
+              </view>
             <view class="weui-form-preview__ft">
+
                 <view class="weui-form-preview__btn weui-form-preview__btn_default" bindtap="callMobile" >
                 联系卖家</view>
                 <block wx:if="{{type==0}}">

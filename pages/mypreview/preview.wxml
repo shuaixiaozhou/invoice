@@ -17,6 +17,22 @@
                     <view class="weui-form-preview__label">描述</view>
                     <view class="weui-form-preview__value">{{note}}</view>
                 </view>
+                <block wx:if="{{status>2}}">
+                  <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">用户email</view>
+                    <view class="weui-form-preview__value">{{email}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">用户发票抬头</view>
+                    <view class="weui-form-preview__value">{{userInvoiceTitle}}</view>
+                </view>
+                  <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">用户税号</view>
+                    <view class="weui-form-preview__value">{{userInvoiceTaxNumber}}</view>
+                </view>
+
+                </block>
+
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">发票类型</view>
                     <view class="weui-form-preview__value">
@@ -30,14 +46,19 @@
                 </view>
             </view>
             <view class="weui-form-preview__ft">
-           
-                  <view class="weui-form-preview__btn weui-form-preview__btn_default" bindtap="deleteMethod" >
+              <block wx:if="{{status==1}}">
+                  <view class="weui-form-preview__btn weui-form-preview__btn_default" bindtap="downMethod" >
+                     下架
+                  </view>
+                   <view class="weui-form-preview__btn weui-form-preview__btn_default" bindtap="deleteMethod" >
                      删除
                   </view>
+                </block>
+                  <block wx:if="{{status==3}}">
                    <view class="weui-form-preview__btn weui-form-preview__btn_primary" bindtap="send" >
                       已发货
                     </view>
-          
+                 </block>
             </view>
         </view>
     </view>

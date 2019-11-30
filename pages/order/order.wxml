@@ -4,12 +4,13 @@
         <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" bindtap='checkCurrent'>待开票</view>
         <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent'>已开票</view>
         <view class='tab  {{currentData == 2 ? "tabBorer" : ""}}' data-current="2" bindtap='checkCurrent'>已完成</view>
+        <view class='tab  {{currentData == 3 ? "tabBorer" : ""}}' data-current="3" bindtap='checkCurrent'>申请退款</view>
       </view>
       <swiper current="{{currentData}}" class='swiper' style="height:600px;" duration="300" bindchange="bindchange">
         <swiper-item>
           <view class='swiper_con'>
                   <block wx:for="{{listwait}}"> 
-                <navigator url="/pages/mypreview/preview?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <navigator url="/pages/myorder/preview?id={{item.orderId}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                     <view class="weui-cell__hd">
                         <image src="{{item.url}}" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
                     </view>
@@ -22,7 +23,7 @@
         <swiper-item>
           <view class='swiper_con'>
            <block wx:for="{{listhad}}"> 
-                <navigator url="/pages/mypreview/preview?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <navigator url="/pages/myorder/preview?id={{item.orderId}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                     <view class="weui-cell__hd">
                         <image src="{{item.url}}" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
                     </view>
@@ -35,7 +36,20 @@
         <swiper-item>
           <view class='swiper_con'>
               <block wx:for="{{listcom}}"> 
-                <navigator url="/pages/mypreview/preview?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <navigator url="/pages/myorder/preview?id={{item.orderId}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                    <view class="weui-cell__hd">
+                        <image src="{{item.url}}" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
+                    </view>
+                    <view class="weui-cell__bd">{{item.title}}</view>
+                    <view class="weui-cell__ft weui-cell__ft_in-access">￥{{item.money/100.0}}</view>
+                </navigator>
+              </block>
+          </view>
+        </swiper-item>
+             <swiper-item>
+          <view class='swiper_con'>
+              <block wx:for="{{listback}}"> 
+                <navigator url="/pages/myorder/preview?id={{item.orderId}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                     <view class="weui-cell__hd">
                         <image src="{{item.url}}" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
                     </view>

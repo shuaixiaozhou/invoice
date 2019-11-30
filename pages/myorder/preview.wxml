@@ -1,32 +1,52 @@
 <view class="page">
-        <view >
-        <image src='{{url}}'></image>
-        </view>
     <view class="page__bd">
         <view class="weui-form-preview">
+            <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">订单id</view>
+                    <view class="weui-form-preview__value">{{orderId}}</view>
+                </view>
             <view class="weui-form-preview__hd">
                 <view class="weui-form-preview__label">付款金额</view>
-                <view class="weui-form-preview__value_in-hd">¥{{money/100.0}}</view>
+                <view class="weui-form-preview__value_in-hd">¥{{orderAmt/100.0}}</view>
             </view>
             <view class="weui-form-preview__bd">
                 <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">标题</view>
-                    <view class="weui-form-preview__value">{{title}}</view>
+                    <view class="weui-form-preview__label">商品标题</view>
+                    <view class="weui-form-preview__value">{{orderTitle}}</view>
                 </view>
                 <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">描述</view>
-                    <view class="weui-form-preview__value">{{note}}</view>
-                </view>
-                <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">发票类型</view>
+                    <view class="weui-form-preview__label">订单状态</view>
                     <view class="weui-form-preview__value">
-                      <block wx:if="{{type==0}}">
-                        扫码发票
-                      </block>
-                      <block wx:if="{{type==1}}">
-                        固定发票
-                      </block>
+                    <block wx:if="{{status==105}}">
+                      待开票
+                    </block>
+                  <block wx:if="{{status==110}}">
+                      已开票
+                    </block>
+                     <block wx:if="{{status==115}}">
+                      已完成
+                    </block>
+                    <block wx:if="{{status==230}}">
+                      申请退款
+                    </block>
                     </view>
+                </view>
+                  <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">邮箱</view>
+                    <view class="weui-form-preview__value">{{email}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">发票抬头</view>
+                    <view class="weui-form-preview__value">{{userInvoiceTitle}}</view>
+                </view>
+                  <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">税号</view>
+                    <view class="weui-form-preview__value">{{userInvoiceTaxNumber}}</view>
+                </view>
+
+                 <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">卖家手机号</view>
+                    <view class="weui-form-preview__value">{{sellerMobile}}</view>
                 </view>
             </view>
             <view class="weui-form-preview__ft">
